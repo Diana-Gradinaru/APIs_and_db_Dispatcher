@@ -83,6 +83,12 @@
         "testCaseId": "9a084c91-7528-4bae-81d6-c1bbe5fd8f46",
         "testCaseType": "TestCase",
         "fileName": "Tests\\WorkflowTestCaseTemplate.xaml"
+      },
+      {
+        "editingStatus": "InProgress",
+        "testCaseId": "fda55b13-d5b6-48d3-843f-557a559b7e92",
+        "testCaseType": "TestCase",
+        "fileName": "Tests\\ServiceLayer\\TestCase_CallMoviesApi.xaml"
       }
     ],
     "modernBehavior": true
