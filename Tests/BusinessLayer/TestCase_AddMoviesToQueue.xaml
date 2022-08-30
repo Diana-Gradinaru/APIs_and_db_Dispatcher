@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="TestCase_AddMoviesToQueue" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="865.6,1487.2" sap2010:WorkflowViewState.IdRef="TestCase_AddMoviesToQueue_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="TestCase_AddMoviesToQueue" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="865.6,1531.2" sap2010:WorkflowViewState.IdRef="TestCase_AddMoviesToQueue_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:njl="clr-namespace:Newtonsoft.Json.Linq;assembly=Newtonsoft.Json" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uta="clr-namespace:UiPath.Testing.Activities;assembly=UiPath.Testing.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="60">
       <x:String>System.Activities</x:String>
@@ -62,7 +62,6 @@
       <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>NPOI</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
       <AssemblyReference>Newtonsoft.Json</AssemblyReference>
       <AssemblyReference>UiPath.Testing.Activities</AssemblyReference>
@@ -80,7 +79,6 @@
       <Variable x:TypeArguments="x:String" Name="strSearchString" />
       <Variable x:TypeArguments="njl:JToken" Name="transactionItem" />
       <Variable x:TypeArguments="x:String" Name="transactionID" />
-      <Variable x:TypeArguments="njl:JArray" Name="transactionData" />
       <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Name="queueItemsInitial" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
@@ -98,47 +96,25 @@
       </sap:WorkflowViewStateService.ViewState>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke InitAllSettings workflow" sap:VirtualizedContainerService.HintSize="342.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Framework\InitAllSettings.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">
-            <Literal x:TypeArguments="x:String">Data\Config.xlsx</Literal>
-          </InArgument>
-          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">
-            <mva:VisualBasicValue x:TypeArguments="s:String[]" ExpressionText="{}{&quot;Settings&quot;,&quot;Constants&quot;}" />
-          </InArgument>
-          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">
-            <mva:VisualBasicReference x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="config" />
-          </OutArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_ConfigFile">Data\Config.xlsx</InArgument>
+          <InArgument x:TypeArguments="s:String[]" x:Key="in_ConfigSheets">[{"Settings","Constants"}]</InArgument>
+          <OutArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="out_Config">[config]</OutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke CallMoviesApi workflow" sap:VirtualizedContainerService.HintSize="342.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="ServiceLayer\TvMazeApi\CallMoviesApi.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="config" />
-          </InArgument>
-          <OutArgument x:TypeArguments="njl:JArray" x:Key="out_jsonArrayMovies">
-            <mva:VisualBasicReference x:TypeArguments="njl:JArray" ExpressionText="jsonArrayMovies" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="out_strSearchString">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="strSearchString" />
-          </OutArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[config]</InArgument>
+          <OutArgument x:TypeArguments="njl:JArray" x:Key="out_jsonArrayMovies">[jsonArrayMovies]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_strSearchString">[strSearchString]</OutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke GetTransactionData workflow" sap:VirtualizedContainerService.HintSize="342.4,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Framework\GetTransactionData.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="x:Int32" x:Key="in_transactionNumber">
-            <Literal x:TypeArguments="x:Int32" Value="1" />
-          </InArgument>
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="config" />
-          </InArgument>
-          <OutArgument x:TypeArguments="njl:JToken" x:Key="out_transactionItem">
-            <mva:VisualBasicReference x:TypeArguments="njl:JToken" ExpressionText="transactionItem" />
-          </OutArgument>
-          <OutArgument x:TypeArguments="x:String" x:Key="out_transactionID">
-            <mva:VisualBasicReference x:TypeArguments="x:String" ExpressionText="transactionID" />
-          </OutArgument>
-          <InOutArgument x:TypeArguments="njl:JArray" x:Key="io_transactionData">
-            <mva:VisualBasicReference x:TypeArguments="njl:JArray" ExpressionText="jsonArrayMovies" />
-          </InOutArgument>
+          <InArgument x:TypeArguments="x:Int32" x:Key="in_transactionNumber">1</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[config]</InArgument>
+          <OutArgument x:TypeArguments="njl:JToken" x:Key="out_transactionItem">[transactionItem]</OutArgument>
+          <OutArgument x:TypeArguments="x:String" x:Key="out_transactionID">[transactionID]</OutArgument>
+          <InOutArgument x:TypeArguments="njl:JArray" x:Key="io_transactionData">[jsonArrayMovies]</InOutArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
       <ui:GetQueueItems Duration="{x:Null}" From="{x:Null}" Priority="{x:Null}" Reference="{x:Null}" Skip="{x:Null}" TimeoutMS="{x:Null}" To="{x:Null}" Top="{x:Null}" DisplayName="Get initial count of Queue Items" FilterStrategy="StartsWith" sap:VirtualizedContainerService.HintSize="342.4,80.8" sap2010:WorkflowViewState.IdRef="GetQueueItems_2" QueueItemStates="New" QueueName="[config(&quot;OrchestratorQueueName&quot;).ToString]" Result="[queueItemsInitial]" />
@@ -151,18 +127,10 @@
       </sap:WorkflowViewStateService.ViewState>
       <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke AddMoviesToQueue workflow" sap:VirtualizedContainerService.HintSize="333.6,113.6" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="BusinessLayer\AddMoviesToQueue.xaml">
         <ui:InvokeWorkflowFile.Arguments>
-          <InArgument x:TypeArguments="njl:JArray" x:Key="in_jsonArrayMovies">
-            <mva:VisualBasicValue x:TypeArguments="njl:JArray" ExpressionText="jsonArrayMovies" />
-          </InArgument>
-          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">
-            <mva:VisualBasicValue x:TypeArguments="scg:Dictionary(x:String, x:Object)" ExpressionText="config" />
-          </InArgument>
-          <InArgument x:TypeArguments="x:Object" x:Key="in_transactionItem">
-            <mva:VisualBasicValue x:TypeArguments="x:Object" ExpressionText="transactionItem" />
-          </InArgument>
-          <InArgument x:TypeArguments="x:String" x:Key="in_strSearchString">
-            <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="strSearchString" />
-          </InArgument>
+          <InArgument x:TypeArguments="njl:JArray" x:Key="in_jsonArrayMovies">[jsonArrayMovies]</InArgument>
+          <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_config">[config]</InArgument>
+          <InArgument x:TypeArguments="x:Object" x:Key="in_transactionItem">[transactionItem]</InArgument>
+          <InArgument x:TypeArguments="x:String" x:Key="in_strSearchString">[strSearchString]</InArgument>
         </ui:InvokeWorkflowFile.Arguments>
       </ui:InvokeWorkflowFile>
     </Sequence>
